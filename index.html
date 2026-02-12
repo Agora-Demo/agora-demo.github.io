@@ -1,0 +1,101 @@
+---
+layout: default
+title: Home
+body_class: index-page
+---
+
+    <!-- Slider Section -->
+    <section id="slider" class="slider section dark-background">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="swiper init-swiper">
+
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "centeredSlides": true,
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              },
+              "navigation": {
+                "nextEl": ".swiper-button-next",
+                "prevEl": ".swiper-button-prev"
+              }
+            }
+          </script>
+
+          <div class="swiper-wrapper">
+            {% assign featured_posts = site.posts | where: "featured", true | limit: 4 %}
+            {% for post in featured_posts %}
+            <div class="swiper-slide" style="background-image: url('{{ site.baseurl }}/{{ post.featured_image }}');">
+              <div class="content">
+                <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+                <p>{{ post.excerpt }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+
+    </section><!-- /Slider Section -->
+
+    <!-- Trending Category Section -->
+    <section id="trending-category" class="trending-category section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="container" data-aos="fade-up">
+          <div class="row g-5">
+            <div class="col-lg-4">
+              {% assign first_post = site.posts | first %}
+              {% if first_post %}
+              {% include post-card-large.html post=first_post %}
+              {% endif %}
+            </div>
+
+            <div class="col-lg-8">
+              <div class="row g-5">
+                <!-- Column 1: Posts 2-4 -->
+                <div class="col-lg-4 border-start custom-border">
+                  {% for post in site.posts offset: 1 limit: 3 %}
+                  {% include post-card-small.html post=post %}
+                  {% endfor %}
+                </div>
+
+                <!-- Column 2: Posts 5-7 -->
+                <div class="col-lg-4 border-start custom-border">
+                  {% for post in site.posts offset: 4 limit: 3 %}
+                  {% include post-card-small.html post=post %}
+                  {% endfor %}
+                </div>
+
+                <!-- Column 3: Posts 8-10 -->
+                <div class="col-lg-4 border-start custom-border">
+                  {% for post in site.posts offset: 7 limit: 3 %}
+                  {% include post-card-small.html post=post %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+
+          </div> <!-- End .row -->
+        </div>
+
+      </div>
+
+    </section><!-- /Trending Category Section -->

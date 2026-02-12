@@ -1,0 +1,6 @@
+<!-- Small post card with image -->
+<div class="post-entry">
+  <a href="{{ include.post.url | relative_url }}"><img src="{{ site.baseurl }}/{{ include.post.thumbnail }}" alt="" class="img-fluid"></a>
+  <div class="post-meta"><span class="date">{{ include.post.category }}</span> <span class="mx-1">•</span> <span>{{ include.post.date | date: "%b %d '%y" }}</span></div>
+  <h2><a href="{{ include.post.url | relative_url }}">{{ include.post.title }}</a></h2>
+</div>

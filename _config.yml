@@ -1,0 +1,51 @@
+# Site settings
+title: Agora
+description: A modern Bootstrap blog template
+baseurl: "agora-demo.github.io" # the subpath of your site, e.g. /blog
+url: "agora-demo.github.io" # the base hostname & protocol for your site
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+# Exclude from processing
+exclude:
+  - Readme.txt
+  - forms/
+  - assets/scss/
+
+# Includes
+include:
+  - _includes
+  - _layouts
+
+# Posts configuration
+permalink: /:year/:month/:day/:title/
+paginate: 10
+paginate_path: "/page:num/"
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      featured: false
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Social links
+social:
+  twitter: "#"
+  facebook: "#"
+  instagram: "#"
+  linkedin: "#"
+
+# Contact info
+contact:
+  address: "A108 Adam Street, New York, NY 535022"
+  phone: "+1 5589 55488 55"
+  email: "info@example.com"

@@ -1,0 +1,16 @@
+<!-- Large post card with image, excerpt, and author -->
+<div class="post-entry lg">
+  <a href="{{ include.post.url | relative_url }}"><img src="{{ site.baseurl }}/{{ include.post.thumbnail }}" alt="" class="img-fluid"></a>
+  <div class="post-meta"><span class="date">{{ include.post.category }}</span> <span class="mx-1">•</span> <span>{{ include.post.date | date: "%b %d '%y" }}</span></div>
+  <h2><a href="{{ include.post.url | relative_url }}">{{ include.post.title }}</a></h2>
+  <p class="mb-4 d-block">{{ include.post.excerpt | strip_html | truncatewords: 30 }}</p>
+
+  {% if include.post.author %}
+  <div class="d-flex align-items-center author">
+    <div class="photo"><img src="{{ site.baseurl }}/{{ include.post.author_image }}" alt="" class="img-fluid"></div>
+    <div class="name">
+      <h3 class="m-0 p-0">{{ include.post.author }}</h3>
+    </div>
+  </div>
+  {% endif %}
+</div>
