@@ -1,0 +1,117 @@
+<!-- SEO Meta Tags -->
+{% if page.description %}
+  {% assign description = page.description %}
+{% elsif page.excerpt %}
+  {% assign description = page.excerpt | strip_html | truncate: 160 %}
+{% else %}
+  {% assign description = site.description %}
+{% endif %}
+
+{% if page.image %}
+  {% assign image = site.url | append: site.baseurl | append: '/' | append: page.image %}
+{% elsif page.thumbnail %}
+  {% assign image = site.url | append: site.baseurl | append: '/' | append: page.thumbnail %}
+{% elsif page.featured_image %}
+  {% assign image = site.url | append: site.baseurl | append: '/' | append: page.featured_image %}
+{% else %}
+  {% assign image = site.url | append: site.baseurl | append: '/assets/img/og-image.jpg' %}
+{% endif %}
+
+{% if page.url %}
+  {% assign canonical = site.url | append: site.baseurl | append: page.url %}
+{% endif %}
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ canonical }}">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:image" content="{{ image }}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:locale" content="en_US">
+
+{% if page.layout == 'post' %}
+<!-- Article specific Open Graph -->
+<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+{% if page.modified_date %}
+<meta property="article:modified_time" content="{{ page.modified_date | date_to_xmlschema }}">
+{% endif %}
+{% if page.author %}
+<meta property="article:author" content="{{ page.author }}">
+{% endif %}
+{% if page.category %}
+<meta property="article:section" content="{{ page.category }}">
+{% endif %}
+{% if page.tags %}
+  {% for tag in page.tags %}
+<meta property="article:tag" content="{{ tag }}">
+  {% endfor %}
+{% endif %}
+{% endif %}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="{{ canonical }}">
+<meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+<meta name="twitter:description" content="{{ description }}">
+<meta name="twitter:image" content="{{ image }}">
+{% if site.twitter_username %}
+<meta name="twitter:site" content="@{{ site.twitter_username }}">
+{% endif %}
+{% if page.author_twitter %}
+<meta name="twitter:creator" content="@{{ page.author_twitter }}">
+{% endif %}
+
+{% if page.layout == 'post' %}
+<!-- JSON-LD Structured Data for Articles/News -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": "{{ page.title | escape }}",
+  "image": [
+    "{{ image }}"
+  ],
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  {% if page.modified_date %}
+  "dateModified": "{{ page.modified_date | date_to_xmlschema }}",
+  {% else %}
+  "dateModified": "{{ page.date | date_to_xmlschema }}",
+  {% endif %}
+  "author": {
+    "@type": "Person",
+    "name": "{{ page.author | default: site.title }}",
+    "url": "{{ site.url }}{{ site.baseurl }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}{{ site.baseurl }}/assets/img/logo.png"
+    }
+  },
+  "description": "{{ description | escape }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ canonical }}"
+  },
+  {% if page.keywords %}
+  "keywords": "{{ page.keywords | join: ', ' }}",
+  {% elsif page.tags %}
+  "keywords": "{{ page.tags | join: ', ' }}",
+  {% endif %}
+  "articleSection": "{{ page.category | default: 'News' }}",
+  "inLanguage": "en-US"
+}
+</script>
+{% endif %}
+
+<!-- Additional SEO Tags -->
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+{% if page.layout == 'post' %}
+<meta name="news_keywords" content="{% if page.tags %}{{ page.tags | join: ', ' }}{% elsif page.keywords %}{{ page.keywords | join: ', ' }}{% endif %}">
+{% endif %}

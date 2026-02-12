@@ -1,8 +1,11 @@
 # Site settings
 title: Agora
-description: A modern Bootstrap blog template
+description: A modern Bootstrap blog template covering politics, international relations, and current events
 baseurl: "" # the subpath of your site, e.g. /blog (leave empty for user/org sites)
 url: "https://agora-demo.github.io" # the base hostname & protocol for your site
+twitter_username: "agora"
+locale: "en_US"
+timezone: "America/New_York"
 
 # Build settings
 markdown: kramdown

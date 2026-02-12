@@ -2,8 +2,13 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
-  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-  <meta name="keywords" content="{{ page.keywords | default: '' }}">
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="keywords" content="{% if page.tags %}{{ page.tags | join: ', ' }}{% elsif page.keywords %}{{ page.keywords }}{% endif %}">
+
+  {% include seo.html %}
+
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }} Feed" href="{{ site.baseurl }}/feed.xml">
 
   <!-- Favicons -->
   <link href="{{ site.baseurl }}/assets/img/favicon.png" rel="icon">
