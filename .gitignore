@@ -8,7 +8,10 @@ Gemfile.lock
 # Ruby
 *.gem
 .bundle
-vendor/
+/vendor/
+
+# BUT allow assets/vendor (CSS/JS libraries)
+!assets/vendor/
 
 # OS
 .DS_Store
