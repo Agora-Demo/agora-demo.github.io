@@ -48,7 +48,7 @@ body_class: single-post-page
               {% if page.author %}
               <div class="d-flex align-items-center author mt-4">
                 {% if page.author_image %}
-                <div class="photo"><img src="{{ site.baseurl }}/{{ page.author_image }}" class="img-fluid" alt=""></div>
+                <div class="photo"><img src="{{ site.baseurl }}/{{ page.author_image }}" class="img-fluid rounded-circle" alt="" style="width: 60px; height: 60px; object-fit: cover;"></div>
                 {% endif %}
                 <div class="name ms-3">
                   <h4>{{ page.author }}</h4>
