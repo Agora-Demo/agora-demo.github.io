@@ -1,31 +1,93 @@
 ---
 layout: default
+body_class: single-post-page
 ---
 
-<article class="post">
-  <header class="post-header">
-    <h1>{{ page.title }}</h1>
-    {% if page.date %}
-    <p class="post-meta">
-      <span class="date">{{ page.category | default: 'Blog' }}</span>
-      <span class="mx-1">•</span>
-      <span>{{ page.date | date: "%b %d '%y" }}</span>
-    </p>
-    {% endif %}
-  </header>
-
-  <div class="post-content">
-    {{ content }}
+<!-- Page Title -->
+<div class="page-title">
+  <div class="container d-lg-flex justify-content-between align-items-center">
+    <h1 class="mb-2 mb-lg-0">{{ page.title }}</h1>
+    <nav class="breadcrumbs">
+      <ol>
+        <li><a href="{{ site.baseurl }}/">Home</a></li>
+        <li class="current">{{ page.title | truncate: 50 }}</li>
+      </ol>
+    </nav>
   </div>
+</div><!-- End Page Title -->
 
-  {% if page.author %}
-  <div class="d-flex align-items-center author">
-    {% if page.author_image %}
-    <div class="photo"><img src="{{ site.baseurl }}/{{ page.author_image }}" alt="" class="img-fluid"></div>
-    {% endif %}
-    <div class="name">
-      <h3 class="m-0 p-0">{{ page.author }}</h3>
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-8">
+
+      <!-- Blog Details Section -->
+      <section id="blog-details" class="blog-details section">
+        <div class="container">
+
+          <article class="article">
+
+            <div class="post-img">
+              <img src="{{ site.baseurl }}/{{ page.thumbnail }}" alt="" class="img-fluid">
+            </div>
+
+            <h2 class="title">{{ page.title }}</h2>
+
+            <div class="meta-top">
+              <ul>
+                <li class="d-flex align-items-center"><i class="bi bi-folder"></i> <a href="#">{{ page.category }}</a></li>
+                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <time datetime="{{ page.date }}">{{ page.date | date: "%b %d, %Y" }}</time></li>
+              </ul>
+            </div><!-- End meta top -->
+
+            <div class="content">
+              {{ content }}
+            </div><!-- End post content -->
+
+            <div class="meta-bottom">
+              {% if page.author %}
+              <div class="d-flex align-items-center author mt-4">
+                {% if page.author_image %}
+                <div class="photo"><img src="{{ site.baseurl }}/{{ page.author_image }}" class="img-fluid" alt=""></div>
+                {% endif %}
+                <div class="name ms-3">
+                  <h4>{{ page.author }}</h4>
+                </div>
+              </div>
+              {% endif %}
+            </div><!-- End meta bottom -->
+
+          </article>
+
+        </div>
+      </section><!-- /Blog Details Section -->
+
     </div>
+
+    <div class="col-lg-4 sidebar">
+
+      <div class="widgets-container">
+
+        <!-- Recent Posts Widget -->
+        <div class="recent-posts-widget widget-item">
+
+          <h3 class="widget-title">Recent Posts</h3>
+
+          {% for post in site.posts limit: 5 %}
+          <div class="post-item">
+            <img src="{{ site.baseurl }}/{{ post.thumbnail }}" alt="" class="flex-shrink-0">
+            <div>
+              <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
+              <time datetime="{{ post.date }}">{{ post.date | date: "%b %d, %Y" }}</time>
+            </div>
+          </div><!-- End recent post item-->
+          {% endfor %}
+
+        </div><!--/Recent Posts Widget -->
+
+      </div>
+
+    </div>
+
   </div>
-  {% endif %}
-</article>
+</div>
